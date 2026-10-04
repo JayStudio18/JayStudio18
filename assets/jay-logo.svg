@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Jay Studio logo">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7f4ee"/>
+      <stop offset="100%" stop-color="#efe6d0"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0%" stop-color="#d1ab2d"/>
+      <stop offset="100%" stop-color="#8c6719"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="256" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="206" fill="#111111"/>
+  <circle cx="256" cy="256" r="182" fill="none" stroke="url(#gold)" stroke-width="8"/>
+  <path d="M183 144h78c49 0 80 29 80 72 0 43-31 73-78 73h-35v77h-45V144zm45 42v59h28c22 0 35-12 35-30s-13-29-35-29h-28z" fill="#f8f5ef"/>
+  <path d="M296 171l64 26-72 150-29-48 37-128z" fill="url(#gold)" opacity="0.96"/>
+  <path d="M332 103l20 38-65 39 45-77z" fill="#f8f5ef" opacity="0.9"/>
+  <circle cx="358" cy="116" r="11" fill="#f8f5ef"/>
+  <path d="M195 350l32 76h34l-18-42 33-34h-45l-24 26-12-26z" fill="#f8f5ef" opacity="0.9"/>
+</svg>

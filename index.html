@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jay Studio — Photographer & Content Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0c10;
+    --paper:#faf9f6;
+    --blue:#c9a227;
+    --blue-deep:#8a6b1f;
+    --gold:#c9a227;
+    --co:#ffcd00; --co2:#003893; --co3:#ce1126;
+    --es:#aa151b; --es2:#f1bf00;
+    --ca:#ff0000;
+    --mx:0.5; --my:0.3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Inter', sans-serif; font-weight:400;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--blue); color:#fff; }
+  h1,h2,h3{ font-family:'Bodoni Moda', serif; font-weight:500; line-height:1.02; letter-spacing:-0.01em; }
+  .eyebrow{
+    font-size:0.72rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--blue-deep); display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:24px; height:2px; background:var(--blue-deep); }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 5vw; mix-blend-mode:difference; color:#fff;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Bodoni Moda', serif; font-size:1.3rem; letter-spacing:0.02em; }
+  .logo em{ font-style:italic; color:var(--blue); }
+  .logo-badge{
+    isolation:isolate; mix-blend-mode:normal;
+    height:40px; width:40px; border-radius:50%; overflow:hidden;
+    background:var(--paper); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 1.5px rgba(11,12,16,0.15);
+  }
+  .logo-badge img{ height:100%; width:100%; object-fit:cover; }
+  .navlinks{ display:flex; gap:32px; font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+  .navlinks a{ color:#fff; text-decoration:none; }
+  .navlinks a:hover, a:focus-visible, button:focus-visible{ outline-offset:3px; }
+  @media (max-width:760px){ .navlinks{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; min-height:100svh; background:var(--paper); color:var(--ink);
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center; padding:110px 6vw 0; overflow:hidden;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      radial-gradient(circle, rgba(11,12,16,0.08) 1px, transparent 1.3px);
+    background-size:26px 26px;
+    -webkit-mask-image:radial-gradient(circle at 50% 45%, black, transparent 72%);
+            mask-image:radial-gradient(circle at 50% 45%, black, transparent 72%);
+  }
+  .spotlight{
+    position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply;
+    background: radial-gradient(560px circle at calc(var(--mx)*100%) calc(var(--my)*100%),
+      rgba(201,162,39,0.5), rgba(201,162,39,0.14) 35%, transparent 62%);
+    transition:background .05s linear;
+  }
+  .hero-ring{
+    position:relative; z-index:2; width:min(230px, 44vw); margin-bottom:30px;
+    filter:drop-shadow(0 12px 30px rgba(11,12,16,0.12));
+  }
+  .hero-ring img{ width:100%; display:block; border-radius:50%; }
+  .hero-flags{
+    position:relative; z-index:2; display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap; justify-content:center;
+  }
+  .flagchip{
+    font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(11,12,16,0.2); color:var(--ink);
+    display:flex; align-items:center; gap:6px;
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; }
+  .hero h1{
+    position:relative; z-index:2;
+    font-size:clamp(2.6rem, 8vw, 5.6rem); text-transform:uppercase;
+  }
+  .hero h1 em{ font-style:italic; color:var(--blue); }
+  .hero p{
+    position:relative; z-index:2; max-width:44ch; margin:22px auto 0;
+    font-size:1.05rem; color:rgba(11,12,16,0.62); line-height:1.6;
+  }
+  .hero-cta{ position:relative; z-index:2; margin-top:38px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; padding-bottom:70px; }
+  .btn{
+    font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+    padding:16px 30px; border-radius:100px; text-decoration:none; cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ink);
+    background:var(--ink); color:var(--paper); transition:all .25s ease;
+  }
+  .btn:hover{ background:transparent; color:var(--ink); }
+  .btn.outline{ background:transparent; color:var(--ink); }
+  .btn.outline:hover{ background:var(--ink); color:var(--paper); }
+  .btn.blue{ background:var(--blue); border-color:var(--blue); color:var(--ink); }
+  .btn.blue:hover{ background:transparent; color:var(--blue); }
+  .scrolldown{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(11,12,16,0.45);
+    display:flex; flex-direction:column; align-items:center; gap:8px; z-index:2;
+  }
+  .scrolldown span{ width:1px; height:34px; background:linear-gradient(var(--blue), transparent); animation:down 1.8s infinite; }
+  @keyframes down{ 0%{opacity:0; transform:scaleY(0.3);} 50%{opacity:1;} 100%{opacity:0; transform:scaleY(1);} }
+
+  /* ---------- ticker ---------- */
+  .ticker{ background:var(--blue); color:var(--ink); padding:14px 0; overflow:hidden; white-space:nowrap; }
+  .ticker-track{ display:inline-flex; gap:36px; animation:scroll 24s linear infinite; font-size:0.82rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; }
+  .ticker-track span{ display:flex; align-items:center; gap:36px; }
+  .ticker-track span::after{ content:"✦"; font-size:0.7rem; opacity:0.8; }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  section{ padding:110px 5vw; position:relative; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:56px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(2.1rem, 5vw, 3.4rem); }
+  .section-head p{ max-width:36ch; color:#4a4a4a; line-height:1.6; }
+
+  /* ---------- gallery filters ---------- */
+  .filters{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
+  .filter-btn{
+    font-size:0.75rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    padding:11px 20px; border-radius:100px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:all .2s ease;
+  }
+  .filter-btn.active, .filter-btn:hover{ background:var(--ink); color:#fff; }
+  .gallery{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
+  }
+  .gcard{
+    position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:6px; cursor:pointer;
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .gcard.hidden{ display:none; }
+  .gcard .fill{ position:absolute; inset:0; transition:transform .5s ease; }
+  .gcard:hover .fill{ transform:scale(1.08); }
+  .gcard::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(11,12,16,0.75), transparent 55%);
+  }
+  .gcard .info{
+    position:absolute; bottom:16px; left:16px; right:16px; z-index:2; color:#fff;
+  }
+  .gcard .tag{ font-size:0.62rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; opacity:0.85; }
+  .gcard .title{ font-family:'Bodoni Moda', serif; font-size:1.15rem; margin-top:4px; }
+  .g1{ background:linear-gradient(150deg,#ffcd00,#ce1126 65%,#0b0c10); }
+  .g2{ background:linear-gradient(160deg,#1b4cff,#0b1f63 70%); }
+  .g3{ background:linear-gradient(140deg,#f1bf00,#aa151b 60%,#0b0c10); }
+  .g4{ background:linear-gradient(170deg,#0b0c10,#1b4cff 80%); }
+  .g5{ background:linear-gradient(150deg,#ce1126,#003893 65%); }
+  .g6{ background:linear-gradient(155deg,#faf9f6,#1b4cff 70%,#0b0c10); }
+  .g7{ background:linear-gradient(165deg,#c9a227,#0b0c10 70%); }
+  .g8{ background:linear-gradient(145deg,#ff0000,#0b1f63 70%); }
+  @media (max-width:900px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- about ---------- */
+  .about{ background:var(--ink); color:var(--paper); }
+  .about-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:center; }
+  .about-photo{
+    aspect-ratio:4/5; border-radius:8px; position:relative;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(27,76,255,0.45), transparent 55%),
+      linear-gradient(160deg,#14151c,#0b0c10 70%);
+    border:1px solid rgba(250,249,246,0.15);
+    display:flex; align-items:flex-end; padding:20px;
+  }
+  .about-photo::before{ content:"JAY · BEHIND THE LENS"; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(250,249,246,0.55); font-weight:600; }
+  .about-copy p{ font-size:1.05rem; line-height:1.75; color:rgba(250,249,246,0.82); margin-bottom:20px; max-width:52ch; }
+  .stats{ display:flex; gap:44px; margin-top:36px; flex-wrap:wrap; }
+  .stat b{ font-family:'Bodoni Moda', serif; font-size:2.3rem; color:var(--blue); display:block; }
+  .stat span{ font-size:0.68rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; opacity:0.65; }
+
+  /* ---------- locations (interactive accordion) ---------- */
+  .locations{ display:flex; flex-direction:column; gap:1px; background:rgba(11,12,16,0.1); border:1px solid rgba(11,12,16,0.12); }
+  .loc{ background:var(--paper); }
+  .loc-head{
+    width:100%; display:flex; justify-content:space-between; align-items:center; gap:20px;
+    padding:30px 6px; background:transparent; border:none; cursor:pointer; text-align:left; color:var(--ink);
+  }
+  .loc-head:hover{ color:var(--blue); }
+  .loc-left{ display:flex; align-items:center; gap:20px; }
+  .loc-num{ font-size:0.75rem; font-weight:700; color:var(--blue-deep); }
+  .loc-head h3{ font-size:1.7rem; }
+  .loc-dot{ width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .loc-plus{ font-size:1.4rem; font-weight:300; transition:transform .3s ease; }
+  .loc.open .loc-plus{ transform:rotate(45deg); }
+  .loc-body{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .loc.open .loc-body{ max-height:200px; }
+  .loc-body p{ padding:0 6px 32px; color:#4a4a4a; max-width:60ch; line-height:1.65; }
+
+  /* ---------- services ---------- */
+  .services{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(11,12,16,0.12); border:1px solid rgba(11,12,16,0.12); }
+  .svc{ background:var(--paper); padding:44px 32px; transition:background .3s, color .3s; }
+  .svc:hover{ background:var(--blue); color:var(--ink); }
+  .svc:hover .svc-num{ color:var(--ink); opacity:0.6; }
+  .svc-num{ font-size:0.78rem; font-weight:700; color:var(--blue); display:block; margin-bottom:22px; }
+  .svc h3{ font-size:1.5rem; margin-bottom:12px; }
+  .svc p{ font-size:0.92rem; line-height:1.6; opacity:0.75; }
+  @media (max-width:860px){ .services{ grid-template-columns:1fr; } }
+
+  /* ---------- cta / footer ---------- */
+  .cta{ text-align:center; padding:140px 5vw 110px; }
+  .cta h2{ font-size:clamp(2.4rem, 7vw, 5rem); margin-bottom:24px; }
+  .cta h2 em{ color:var(--blue); font-style:italic; }
+  .cta-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+
+  footer{ background:var(--ink); color:rgba(250,249,246,0.6); padding:60px 5vw 26px; }
+  .foot-grid{ display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:44px; border-bottom:1px solid rgba(250,249,246,0.15); }
+  .foot-col h4{ font-family:'Bodoni Moda', serif; font-style:italic; color:var(--paper); font-size:1.1rem; margin-bottom:16px; }
+  .foot-col a{ display:block; color:rgba(250,249,246,0.6); text-decoration:none; font-size:0.9rem; margin-bottom:8px; }
+  .foot-col a:hover{ color:var(--blue); }
+  .foot-bottom{ display:flex; justify-content:space-between; padding-top:22px; font-size:0.68rem; letter-spacing:0.05em; flex-wrap:wrap; gap:10px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{ animation:none; } .scrolldown span{ animation:none; } html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="logo-badge"><img src="assets/jay-logo.svg" alt="Jay Studio emblem"></span>JA<em>Y</em> STUDIO</div>
+  <div class="navlinks">
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#locations">Locations</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="spotlight" id="spotlight"></div>
+  <div class="hero-ring"><img src="assets/jay-logo.svg" alt="Jay Studio logo — JAY monogram with a lion crest"></div>
+  <div class="hero-flags">
+    <span class="flagchip"><span class="dot" style="background:var(--co)"></span>Colombia</span>
+    <span class="flagchip"><span class="dot" style="background:var(--es)"></span>Spain</span>
+    <span class="flagchip"><span class="dot" style="background:var(--ca)"></span>Canada</span>
+  </div>
+  <h1>Jay <em>Studio</em></h1>
+  <p>Photographer &amp; content creator capturing culture, color, and real moments across three countries — one frame at a time.</p>
+  <div class="hero-cta">
+    <a href="#gallery" class="btn">View the gallery</a>
+    <a href="#contact" class="btn outline">Work with me</a>
+  </div>
+  <div class="scrolldown">Scroll<span></span></div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>PHOTOGRAPHER &amp; CONTENT CREATOR</span>
+    <span>COLOMBIA · SPAIN · CANADA</span>
+    <span>TRAVELING, CREATING, INSPIRING</span>
+    <span>PHOTOGRAPHER &amp; CONTENT CREATOR</span>
+    <span>COLOMBIA · SPAIN · CANADA</span>
+    <span>TRAVELING, CREATING, INSPIRING</span>
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Selected work</div>
+      <h2>The Gallery</h2>
+    </div>
+    <p>Portraits, cultural celebrations, and travel stories from three continents. Filter by category to explore.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="portrait">Portraits</button>
+    <button class="filter-btn" data-filter="culture">Cultural Heritage</button>
+    <button class="filter-btn" data-filter="travel">Travel</button>
+    <button class="filter-btn" data-filter="reel">Reels</button>
+  </div>
+
+  <div class="gallery" id="gallery-grid">
+    <div class="gcard" data-cat="culture"><div class="fill g1"></div><div class="info"><span class="tag">Culture · Colombia</span><div class="title">Traditional Dress</div></div></div>
+    <div class="gcard" data-cat="portrait"><div class="fill g2"></div><div class="info"><span class="tag">Portrait · Studio</span><div class="title">Editorial Light</div></div></div>
+    <div class="gcard" data-cat="reel"><div class="fill g3"></div><div class="info"><span class="tag">Reel · Spain</span><div class="title">Behind the Scenes</div></div></div>
+    <div class="gcard" data-cat="travel"><div class="fill g4"></div><div class="info"><span class="tag">Travel · Canada</span><div class="title">On Location</div></div></div>
+    <div class="gcard" data-cat="culture"><div class="fill g5"></div><div class="info"><span class="tag">Culture · Chile</span><div class="title">Flags &amp; Festivals</div></div></div>
+    <div class="gcard" data-cat="portrait"><div class="fill g6"></div><div class="info"><span class="tag">Portrait · Natural Light</span><div class="title">Golden Hour</div></div></div>
+    <div class="gcard" data-cat="travel"><div class="fill g7"></div><div class="info"><span class="tag">Travel · Colombia</span><div class="title">Street Stories</div></div></div>
+    <div class="gcard" data-cat="culture"><div class="fill g8"></div><div class="info"><span class="tag">Culture · Peru</span><div class="title">Heritage Colors</div></div></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-photo"></div>
+    <div class="about-copy">
+      <div class="eyebrow" style="color:var(--blue)">About Jay</div>
+      <h2 style="color:var(--paper); font-size:clamp(2rem,4vw,2.8rem); margin:18px 0 26px;">Telling stories in color, wherever the road leads.</h2>
+      <p>Based between Colombia, Spain, and Canada, I photograph the people and moments that make each culture feel alive — traditional dress, festival color, quiet portraits, and everything in between.</p>
+      <p>What started as a way to document travel has grown into a full creative practice: shoots, reels, and campaigns built around real emotion instead of a stiff pose.</p>
+      <div class="stats">
+        <div class="stat"><b>51</b><span>Posts published</span></div>
+        <div class="stat"><b>7.5K+</b><span>Views last 30 days</span></div>
+        <div class="stat"><b>3</b><span>Countries covered</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Where I shoot</div>
+      <h2>Three home bases</h2>
+    </div>
+    <p>Click a location to see what I shoot there.</p>
+  </div>
+
+  <div class="locations" id="locations-list">
+    <div class="loc open">
+      <button class="loc-head" aria-expanded="true">
+        <div class="loc-left"><span class="loc-num">01</span><span class="loc-dot" style="background:var(--co)"></span><h3>Colombia</h3></div>
+        <span class="loc-plus">+</span>
+      </button>
+      <div class="loc-body"><p>Where it all started — cultural festivals, traditional dress, and portraits shot in natural daylight across the country.</p></div>
+    </div>
+    <div class="loc">
+      <button class="loc-head" aria-expanded="false">
+        <div class="loc-left"><span class="loc-num">02</span><span class="loc-dot" style="background:var(--es)"></span><h3>Spain</h3></div>
+        <span class="loc-plus">+</span>
+      </button>
+      <div class="loc-body"><p>Editorial portraits and behind-the-scenes content, shot between city streets and golden-hour courtyards.</p></div>
+    </div>
+    <div class="loc">
+      <button class="loc-head" aria-expanded="false">
+        <div class="loc-left"><span class="loc-num">03</span><span class="loc-dot" style="background:var(--ca)"></span><h3>Canada</h3></div>
+        <span class="loc-plus">+</span>
+      </button>
+      <div class="loc-body"><p>Travel stories and brand content, built around wide-open landscapes and quieter, natural moments.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="services-section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">What I offer</div>
+      <h2>Work with me</h2>
+    </div>
+  </div>
+  <div class="services">
+    <div class="svc">
+      <span class="svc-num">01</span>
+      <h3>Portrait Sessions</h3>
+      <p>Studio or on-location portraits with an editorial eye — built around your story, not a template pose.</p>
+    </div>
+    <div class="svc">
+      <span class="svc-num">02</span>
+      <h3>Content Creation</h3>
+      <p>Photo and reel content for brands and creators, shot and edited to feel native to the platform.</p>
+    </div>
+    <div class="svc">
+      <span class="svc-num">03</span>
+      <h3>Cultural &amp; Travel</h3>
+      <p>Documentary-style coverage of festivals, heritage events, and travel — color-rich and true to the moment.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="eyebrow" style="justify-content:center;">Let's create</div>
+  <h2>Got a shoot<br>in <em>mind?</em></h2>
+  <p style="max-width:44ch; margin:0 auto; color:#4a4a4a; line-height:1.6;">Based between three countries and open to travel. Reach out and let's talk about your project.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn blue">Book a session</a>
+    <a href="#" class="btn outline" style="color:var(--ink); border-color:var(--ink);">Message on Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col">
+      <h4>Jay Studio</h4>
+      <a href="#">Colombia · Spain · Canada</a>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#locations">Locations</a>
+    </div>
+    <div class="foot-col">
+      <h4>Say hello</h4>
+      <a href="#">hello@jaystudio.com</a>
+      <a href="#">@jay_studio18</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 JAY STUDIO</span>
+    <span>PHOTOGRAPHER &amp; CONTENT CREATOR</span>
+  </div>
+</footer>
+
+<script>
+  // cursor spotlight in hero
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) / rect.width;
+    const my = (e.clientY - rect.top) / rect.height;
+    hero.style.setProperty('--mx', mx);
+    hero.style.setProperty('--my', my);
+  });
+
+  // gallery filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.gcard');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        if (f === 'all' || c.dataset.cat === f) c.classList.remove('hidden');
+        else c.classList.add('hidden');
+      });
+    });
+  });
+
+  // location accordion
+  const locs = document.querySelectorAll('.loc');
+  locs.forEach(loc => {
+    const head = loc.querySelector('.loc-head');
+    head.addEventListener('click', () => {
+      const isOpen = loc.classList.contains('open');
+      locs.forEach(l => { l.classList.remove('open'); l.querySelector('.loc-head').setAttribute('aria-expanded','false'); });
+      if (!isOpen){ loc.classList.add('open'); head.setAttribute('aria-expanded','true'); }
+    });
+  });
+</script>
+
+</body>
+</html>
+
